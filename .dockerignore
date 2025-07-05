@@ -1,0 +1,76 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# GitHub
+.github
+
+# Documentation
+README.md
+DEPLOYMENT.md
+*.md
+
+# Development files
+.env
+.env.local
+.env.development
+.env.production
+
+# Service account keys (security)
+*.json
+credentials/
+secrets/
+
+# Build outputs
+dist/
+build/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Node modules (if any)
+node_modules/
+
+# Go test files
+*_test.go
+
+# Temporary files
+.tmp/
+temp/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# CI/CD
+.travis.yml
+.circleci/
+.gitlab-ci.yml 
