@@ -19,7 +19,7 @@ func main() {
 	router := routers.InitializeRoutes()
 	handler := enableCORS(router)
 
-	log.Fatal(http.ListenAndServe(":"+port, handler))
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+port, handler))
 }
 
 func enableCORS(next http.Handler) http.Handler {
