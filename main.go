@@ -6,20 +6,9 @@ import (
 	"os"
 	"xplore/config"
 	"xplore/routers"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	if err := config.LoadConfig(); err != nil {
-		log.Fatal(err)
-	}
-
 	config.ConnectDatabase()
 
 	port := os.Getenv("PORT")
