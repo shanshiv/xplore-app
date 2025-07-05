@@ -2,12 +2,14 @@ package controller
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"strconv"
+	"os"
 	"time"
 	"xplore/config"
 	"xplore/models"
@@ -78,10 +80,23 @@ func CreatePenginapan(w http.ResponseWriter, r *http.Request) {
 
 // uploadPenginapanToGCS mengupload file ke Google Cloud Storage untuk Penginapan
 func uploadPenginapanToGCS(file multipart.File, filename string) (string, error) {
+	var opt option.ClientOption
+	if os.Getenv("NODE_ENV") == "LOCAL" {
+		base64Json := os.Getenv("GCP_SERVICE_ACCOUNT")
+		if base64Json == "" {
+			return "", fmt.Errorf("GCP_SERVICE_ACCOUNT environment variable is not set")
+		}
+		
+		decodedData, err := base64.StdEncoding.DecodeString(base64Json)
+		if err != nil {
+			return "", fmt.Errorf("error decoding base64: %v", err.Error())
+		}
+		opt = option.WithCredentialsJSON(decodedData)
+	} else {
+		opt = option.WithCredentials(nil)
+	}
 	ctx := context.Background()
-
-	// Membuat klien Google Cloud Storage
-	client, err := storage.NewClient(ctx, option.WithCredentialsFile("./config/xplore-48-447519269b91.json"))
+	client, err := storage.NewClient(ctx, opt)
 	if err != nil {
 		return "", fmt.Errorf("failed to create GCS client: %v", err)
 	}
