@@ -2,12 +2,14 @@ package controller
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"strconv"
+	"os"
 	"time"
 	"xplore/config"
 	"xplore/models"
