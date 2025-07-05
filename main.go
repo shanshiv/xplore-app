@@ -6,9 +6,12 @@ import (
 	"os"
 	"xplore/config"
 	"xplore/routers"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	godotenv.Load()
 	config.ConnectDatabase()
 
 	port := os.Getenv("PORT")

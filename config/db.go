@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -14,11 +15,11 @@ var DB *gorm.DB
 // ConnectDatabase menghubungkan aplikasi Go dengan database PostgreSQL di Google Cloud
 func ConnectDatabase() {
 	// Ganti dengan data kredensial Google Cloud SQL Anda
-	host := "xplore-48:asia-southeast2:xplore-db"
-	user := "xplore-db"       // Username database
-	password := "damar150705" // Password database
-	dbname := "xplore_db"     // Nama database
-	port := "5432"            // Port PostgreSQL (default)
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
 
 	// Membuat string koneksi
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
