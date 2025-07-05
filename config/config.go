@@ -21,10 +21,6 @@ type ServiceAccount struct {
 	UniverseDomain string `json:"universe_domain"`
 }
 
-// type TConfig struct {
-// 	GcpServiceAccount ServiceAccount
-// }
-
 var Config ServiceAccount
 
 func LoadConfig() error {

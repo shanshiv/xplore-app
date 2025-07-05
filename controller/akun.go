@@ -8,6 +8,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"os"
 	"time"
 	"xplore/config"
 	"xplore/models"
@@ -57,14 +58,14 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 
 // Fungsi untuk mengupload foto ke Google Cloud Storage
 func uploadFotoToGCS(file multipart.File, filename string) (string, error) {
-	by, err := json.Marshal(config.Config)
-	if err != nil {
-		return "", fmt.Errorf("error marshall : %v", err.Error())
+	var opt option.ClientOption
+	if os.Getenv("NODE_ENV") == "LOCAL" {
+		opt = option.WithCredentialsFile("xplore-48-447519269b91.json")
 	}
 
 	// Membuat klien Google Cloud Storage
 	ctx := context.Background()
-	client, err := storage.NewClient(ctx, option.WithCredentialsJSON(by))
+	client, err := storage.NewClient(ctx, opt)
 	if err != nil {
 		return "", fmt.Errorf("failed to create GCS client: %v", err)
 	}
